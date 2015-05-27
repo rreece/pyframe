@@ -24,19 +24,10 @@ SEE ALSO
 ## std imports
 import json
 import time
-timestamp = time.strftime("%Y-%m-%d-%Hh%M")
 
-## configure logging
 import logging
-logging.basicConfig(
-       filename="pyframe.%s.log" % (timestamp),
-       filemode="w",
-       level=logging.INFO,
-       format="[%(asctime)s %(name)-16s %(levelname)-7s]  %(message)s",
-       datefmt="%Y-%m-%d %H:%M:%S",
-       )
 log = logging.getLogger(__name__)
-#log.setLevel(logging.INFO)
+log.setLevel(logging.INFO)
 
 
 #------------------------------------------------------------------------------
@@ -95,6 +86,16 @@ class EventLoop(object):
         self._progress_interval  = 100
         self._n_events_processed = 0
         self.quiet = False
+
+        ## configure logging
+        timestamp = time.strftime("%Y-%m-%d-%Hh%M")
+        logging.basicConfig(
+               filename="%s.%s.log" % (name, timestamp),
+               filemode="w",
+               level=logging.INFO,
+               format="[%(asctime)s %(name)-16s %(levelname)-7s]  %(message)s",
+               datefmt="%Y-%m-%d %H:%M:%S",
+               )
 
     #_________________________________________________________________________
     def __iadd__(self, alg):

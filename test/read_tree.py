@@ -96,6 +96,9 @@ def main():
     tree_reader.add_files(input_files)
     tree_reader.reset_branches()
 
+    ## make a HistManager
+    hist_manager = pyrootutils.HistManager()
+
     ## make an EventLoop
     loop = pyframe.core.EventLoop('TestLoop')  ## has store and config dicts
     loop.config['tree_reader'] = tree_reader
