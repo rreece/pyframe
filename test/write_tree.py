@@ -1,36 +1,44 @@
 #!/usr/bin/env python
 """
 NAME
-    name.py - short description
+    write_tree.py - a pyframe example script
 
 SYNOPSIS
-    Put synposis here.
+    ./write_tree.py [-n 10000]
 
 DESCRIPTION
-    Put description here.
+    Generates a ROOT TTree with toy data in it and saves it to a
+    ROOT file.  Demonstrates how write trees in python.
 
 OPTIONS
     -h, --help
         Prints this manual and exits.
         
-    -n VAL
-        Blah blah.
+    -n NEVENTS
+        The number of events to generate.
+
+    -o, --output myntuple.root
+        Output file name.
+
+    -t, --tree myntuple
+        Input tree name.
 
 AUTHOR
     Ryan Reece  <ryan.reece@cern.ch>
 
 COPYRIGHT
-    Copyright 2010 Ryan Reece
+    Copyright 2015 Ryan Reece
     License: GPL <http://www.gnu.org/licenses/gpl.html>
 
 SEE ALSO
-    ROOT <http://root.cern.ch>
+    - pyframe <https://github.com/rreece/pyframe/>
+    - ROOT <http://root.cern.ch>
 
 TO DO
     - One.
     - Two.
 
-2011-06-15
+2015-05-26
 """
 
 #------------------------------------------------------------------------------

@@ -1,36 +1,40 @@
 #!/usr/bin/env python
 """
 NAME
-    name.py - short description
+    read_tree.py - a pyframe example script
 
 SYNOPSIS
-    Put synposis here.
+    ./read_tree.py myntuple.root
 
 DESCRIPTION
-    Put description here.
+    Demonstrates how to read trees in pyframe and make some histograms.
 
 OPTIONS
     -h, --help
         Prints this manual and exits.
         
-    -n VAL
-        Blah blah.
+    -o, --output output.hists.root
+        Output file name.
+
+    -t, --tree myntuple
+        Input tree name.
 
 AUTHOR
     Ryan Reece  <ryan.reece@cern.ch>
 
 COPYRIGHT
-    Copyright 2010 Ryan Reece
+    Copyright 2015 Ryan Reece
     License: GPL <http://www.gnu.org/licenses/gpl.html>
 
 SEE ALSO
-    ROOT <http://root.cern.ch>
+    - pyframe <https://github.com/rreece/pyframe/>
+    - ROOT <http://root.cern.ch>
 
 TO DO
     - One.
     - Two.
 
-2011-06-15
+2015-05-26
 """
 
 #------------------------------------------------------------------------------
@@ -79,17 +83,13 @@ def options():
 def main():
     ops = options()
 
-    ## open file and get the tree
+    ## get input files and output options
     input_files = list(ops.infiles)
     if ops.input:
         s_input = str(ops.input)
         input_files.extend( s_input.split(',') )
     tree_name = ops.tree
     plot_output = ops.output
-
-    ## make a HistManager
-    hist_manager = pyrootutils.HistManager()
-    hm = hist_manager
 
     ## make a TreeReader
     tree_reader = pyrootutils.TreeReader(tree_name)
@@ -101,6 +101,7 @@ def main():
     loop.config['tree_reader'] = tree_reader
     loop.config['hist_manager'] = hist_manager
 
+    ## schedule algorithms
     loop += PlotsAlg(output=plot_output)
 
     ## run the event loop

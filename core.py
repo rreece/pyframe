@@ -1,8 +1,32 @@
+"""
+NAME
+    pyframe.core
+    
+DESCRIPTION
+    These are the core base-classes of the new re-vamped
+    pyframe framework.
+
+AUTHORS
+    Ryan Reece  <ryan.reece@cern.ch>
+    Alex Tuna   <alexander.tuna@cern.ch>
+    Will Davey  <will.davey@cern.ch>
+
+COPYRIGHT
+    Copyright 2010 The authors
+    License: GPL <http://www.gnu.org/licenses/gpl.html>
+
+SEE ALSO
+    ROOT <http://root.cern.ch>
+
+2015-05-26
+"""
+
+## std imports
 import json
 import time
 timestamp = time.strftime("%Y-%m-%d-%Hh%M")
 
-# configure logging
+## configure logging
 import logging
 logging.basicConfig(
        filename="pyframe.%s.log" % (timestamp),
@@ -13,8 +37,6 @@ logging.basicConfig(
        )
 log = logging.getLogger(__name__)
 #log.setLevel(logging.INFO)
-
-import ROOT
 
 
 #------------------------------------------------------------------------------
@@ -54,7 +76,6 @@ class Algorithm(object):
         Override this method in your derived class as you need.
         """
         return True
-
 
 
 
@@ -153,6 +174,10 @@ class EventLoop(object):
         # finalize
         self.finalize()
 
+    #-------------------------------------------------------------------------
+    # The user should not have to use the EventLoop functions below. 
+    #-------------------------------------------------------------------------
+
     #_________________________________________________________________________
     def initialize(self):
         log.debug('EventLoop.initialize: %s' % self.name)
@@ -226,7 +251,8 @@ class EventLoop(object):
 
             ## timing method summary
             timingSum = sum([self._timing['%s_%s' % (method,alg.name)] for alg in self._algorithms])
-            ncalls = self._n_events_processed if method == 'execute' else 1
+#            ncalls = self._n_events_processed if method == 'execute' else 1
+            ncalls = self._ncalls['%s_%s' % (method,alg.name)] if method == 'execute' else 1
             rate = ncalls / timingSum if timingSum else 0.0
             s += '%3s %-40s %8.2f %8i %10.1f %8.3f\n' % ('', 'Sum', timingSum, ncalls, rate, 1.00)
             if not timingSum:
