@@ -29,6 +29,9 @@ import logging
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
 
+## my imports
+import pyrootutils
+
 
 #------------------------------------------------------------------------------
 # Algorithm class
@@ -78,14 +81,16 @@ class EventLoop(object):
     TODO: write a docstring.
     """
     #__________________________________________________________________________
-    def __init__(self, name='myloop', config=None):
+    def __init__(self, name='myloop', config=None, tree='tree'):
         self.name = name
         self.config = config or dict()  ## information persists
         self.store = dict()             ## information cleared event-by-event
         self._algorithms = list()
+        self.chain = pyrootutils.TreeReader(tree)
+        self.hist_manager = pyrootutils.HistManager()
         self._progress_interval  = 100
         self._n_events_processed = 0
-        self.quiet = False
+#        self.quiet = False
 
         ## configure logging
         timestamp = time.strftime("%Y-%m-%d-%Hh%M")
@@ -122,17 +127,21 @@ class EventLoop(object):
         return self
 
     #_________________________________________________________________________
+    def add_input_files(self, input_files):
+        """
+        TODO: write a docstring."
+        """
+        self.chain.add_files(input_files)
+
+    #_________________________________________________________________________
     def run(self, min_entry=0, max_entry=-1):
         """
         This is the CPU-consuming function call that runs the event-loop.
         The user can optionally specify the event range to run over.
         """
-        assert self.config.has_key('tree_reader')
-        tr = self.config['tree_reader']
-
         log.info("EventLoop.run: %s" % self.name)
 
-        n_entries = tr.get_entries()
+        n_entries = self.chain.get_entries()
         if max_entry < 0:
             max_entry = n_entries
         else:
@@ -169,7 +178,7 @@ class EventLoop(object):
                 print log_line
 
             ## GetEntry and execute algs
-            tr.get_entry(i_entry)
+            self.chain.get_entry(i_entry)
             self.execute()
 
         # finalize
@@ -195,6 +204,8 @@ class EventLoop(object):
             self._timing['execute_%s' % alg.name] = _time
             self._ncalls['execute_%s' % alg.name] = 0
             log.debug('initialized %s' % alg.name)
+        ## reset branches
+        self.chain.reset_branches()
         ## print config
         s_config = {}
         for key, val in self.config.iteritems():

@@ -91,18 +91,9 @@ def main():
     tree_name = ops.tree
     plot_output = ops.output
 
-    ## make a TreeReader
-    tree_reader = pyrootutils.TreeReader(tree_name)
-    tree_reader.add_files(input_files)
-    tree_reader.reset_branches()
-
-    ## make a HistManager
-    hist_manager = pyrootutils.HistManager()
-
     ## make an EventLoop
-    loop = pyframe.core.EventLoop('TestLoop')  ## has store and config dicts
-    loop.config['tree_reader'] = tree_reader
-    loop.config['hist_manager'] = hist_manager
+    loop = pyframe.core.EventLoop('TestLoop', tree=tree_name)
+    loop.add_input_files(input_files)
 
     ## schedule algorithms
     loop += PlotsAlg(output=plot_output)
