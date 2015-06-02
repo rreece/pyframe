@@ -49,8 +49,9 @@ class Algorithm(object):
         self.is_filter = is_filter
         # initialized in +=
         self.parent = None             
-        self.store  = None
         self.config = None
+        self.store  = None
+        self.chain  = None
 
     #_________________________________________________________________________
     def initialize(self):
@@ -71,6 +72,12 @@ class Algorithm(object):
         """
         return True
 
+    #_________________________________________________________________________
+    def hist(self, name, decl, dir=''):
+        """
+        TODO: write a docstring."
+        """
+        return self.parent._hist_manager.hist(name, decl, dir)
 
 
 #------------------------------------------------------------------------------
@@ -87,7 +94,7 @@ class EventLoop(object):
         self.store = dict()             ## information cleared event-by-event
         self._algorithms = list()
         self.chain = pyrootutils.TreeReader(tree)
-        self.hist_manager = pyrootutils.HistManager()
+        self._hist_manager = pyrootutils.HistManager()
         self._progress_interval  = 100
         self._n_events_processed = 0
 #        self.quiet = False
@@ -122,6 +129,7 @@ class EventLoop(object):
             a.parent = self # set a reference to this event loop
             a.config = self.config
             a.store  = self.store
+            a.chain  = self.chain
             self._algorithms.append(a)
 
         return self
@@ -132,6 +140,13 @@ class EventLoop(object):
         TODO: write a docstring."
         """
         self.chain.add_files(input_files)
+
+    #_________________________________________________________________________
+    def hist(self, name, decl, dir=''):
+        """
+        TODO: write a docstring."
+        """
+        return self._hist_manager.hist(name, decl, dir)
 
     #_________________________________________________________________________
     def run(self, min_entry=0, max_entry=-1):
@@ -251,6 +266,13 @@ class EventLoop(object):
             log.debug('finalized %s' % alg.name)
         ## time summary
         log.info('ALGORITHM TIME SUMMARY\n' + self.get_time_summary())
+        ## write histograms
+        if len(self._hist_manager._hists) > 0:
+            outfile = '%s.hists.root' % self.name
+            log.info('Writing histograms to %s ...' % outfile)
+            n_hists = self._hist_manager.write_hists(outfile)
+            log.info('  %i histograms written.' % n_hists)
+
 
     #_________________________________________________________________________
     def get_time_summary(self):

@@ -96,7 +96,7 @@ def main():
     loop.add_input_files(input_files)
 
     ## schedule algorithms
-    loop += PlotsAlg(output=plot_output)
+    loop += PlotsAlg()
 
     ## run the event loop
     loop.run()
@@ -109,32 +109,23 @@ def main():
 #------------------------------------------------------------------------------
 class PlotsAlg(pyframe.core.Algorithm):
     #__________________________________________________________________________
-    def __init__(self, name='PlotsAlg', output='output.hists.root'):
+    def __init__(self, name='PlotsAlg'):
         pyframe.core.Algorithm.__init__(self, name)
-        self.output = output
 
     #__________________________________________________________________________
     def execute(self): 
-        tr = self.config['tree_reader']
-        hm = self.config['hist_manager']
-
         weight = 1.0
 
         ## fill event-level histograms
-        hm.hist('h_w', "ROOT.TH1F('$', ';w;Events', 20, -2.0, 3.0)").Fill(tr.w, weight)
-        hm.hist('h_ph_n', "ROOT.TH1F('$', ';ph_n;Events', 20, -0.5, 19.5)").Fill(tr.ph_n, weight)
+        self.hist('h_w', "ROOT.TH1F('$', ';w;Events', 20, -2.0, 3.0)").Fill(self.chain.w, weight)
+        self.hist('h_ph_n', "ROOT.TH1F('$', ';ph_n;Events', 20, -0.5, 19.5)").Fill(self.chain.ph_n, weight)
 
         ## build VarProxies for photons
-        photons = tr.build_var_proxies('ph_', tr.ph_n)
+        photons = self.chain.build_var_proxies('ph_', self.chain.ph_n)
 
         ## fill histograms per photon
         for ph in photons:
-            hm.hist('h_ph_pt', "ROOT.TH1F('$', ';ph_pt;Events / (10 GeV)', 20, 0.0, 200)").Fill(ph.pt/GeV, weight)
-
-    #__________________________________________________________________________
-    def finalize(self): 
-        hm = self.config['hist_manager']
-        hm.write_hists(self.output)
+            self.hist('h_ph_pt', "ROOT.TH1F('$', ';ph_pt;Events / (10 GeV)', 20, 0.0, 200)").Fill(ph.pt/GeV, weight)
 
 
 #------------------------------------------------------------------------------
