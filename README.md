@@ -19,8 +19,10 @@ TODO.
 
 ## See also
 
--   <http://root.cern.ch/>
--   <http://root.cern.ch/root/HowtoPyROOT.html>
+-   <https://root.cern.ch/>
+-   <https://root.cern.ch/pyroot>
+-   <https://root.cern.ch/how/how-use-pyroot-root-python-bindings>
+-   <http://wlav.web.cern.ch/wlav/pyroot/>
 
 
 ## Legacy
