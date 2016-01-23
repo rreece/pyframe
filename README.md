@@ -1,6 +1,6 @@
 # pyframe
 
-A python base framework for processing ROOT ntuples.
+A python framework for processing ROOT ntuples.
 
 -   author: Ryan Reece <ryan.reece@cern.ch>
 -   created: May 26, 2010
@@ -15,6 +15,13 @@ A python base framework for processing ROOT ntuples.
 ## Getting started
 
 TODO.
+
+
+## See Also
+
+-   <http://root.cern.ch/>
+-   <http://root.cern.ch/root/HowtoPyROOT.html>
+
 
 ## Legacy
 
