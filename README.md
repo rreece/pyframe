@@ -17,7 +17,7 @@ A python framework for processing ROOT ntuples.
 TODO.
 
 
-## See Also
+## See also
 
 -   <http://root.cern.ch/>
 -   <http://root.cern.ch/root/HowtoPyROOT.html>
