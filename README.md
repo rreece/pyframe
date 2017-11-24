@@ -14,7 +14,17 @@ A python framework for processing ROOT ntuples.
 
 ## Getting started
 
-TODO.
+It's best to start by seeing
+[this presentation](https://reece.web.cern.ch/reece/share/talks/2011/2011-09-21_pyframe_PAT.pdf)
+by Ryan about the ideas behind pyframe,
+and then following the (outdated) documentation on 
+[this wiki](https://twiki.cern.ch/twiki/bin/view/Sandbox/PyFrame).
+
+
+## Legacy
+
+-   Another version of the pyframe code in a CERN svn, with particularly detailed implementations for reconstruction and performance for ATLAS Run 1, is in [PennTau/pyframe](https://svnweb.cern.ch/trac/penn/browser/PennTau/)
+-   Another version of the pyframe code in a CERN svn is [atlasgroups/PhysicsAnalysis/pyframe](https://svnweb.cern.ch/trac/atlasgroups/browser/PhysicsAnalysis/pyframe).
 
 
 ## See also
@@ -23,12 +33,5 @@ TODO.
 -   <https://root.cern.ch/pyroot>
 -   <https://root.cern.ch/how/how-use-pyroot-root-python-bindings>
 -   <http://wlav.web.cern.ch/wlav/pyroot/>
-
-
-## Legacy
-
--   Another version of pyframe code in a CERN svn is [atlasgroups/PhysicsAnalysis/pyframe](https://svnweb.cern.ch/trac/atlasgroups/browser/PhysicsAnalysis/pyframe).
--   An old version of documentation (needs to be brought up to date) is [this wiki](https://twiki.cern.ch/twiki/bin/view/Sandbox/PyFrame).
--   An old presentation by Ryan about the ideas behind pyframe is [here](https://reece.web.cern.ch/reece/share/talks/2011/2011-09-21_pyframe_PAT.pdf).
 
 
