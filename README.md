@@ -15,7 +15,7 @@ A python framework for processing ROOT ntuples.
 ## Getting started
 
 It's best to start by seeing
-[this presentation](https://reece.web.cern.ch/reece/share/talks/2011/2011-09-21_pyframe_PAT.pdf)
+[this presentation](http://rreece.github.io/talks/pdf/2011-09-21-RReece-pyframe-PAT.pdf).
 by Ryan about the ideas behind pyframe,
 and then following the (outdated) documentation on 
 [this wiki](https://twiki.cern.ch/twiki/bin/view/Sandbox/PyFrame).
